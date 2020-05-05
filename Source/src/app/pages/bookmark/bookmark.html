@@ -1,0 +1,33 @@
+<!-- Page About -->
+<ion-header class="box-shadow">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button defaultHref="/"></ion-menu-button>
+      </ion-buttons>
+      <ion-title class="ion-text-uppercase">VAMOS JUNTOS RD</ion-title>
+    </ion-toolbar>
+</ion-header>
+<!-- Content -->
+<ion-content>
+  <ion-grid>
+    <ion-row *ngIf="posts.length">
+      <ion-col size="12">
+        <h2 class="text-size-lg text-color-primary ion-margin-bottom ion-padding-start">Guardados</h2>
+        <ion-button size="small" class="text-size-p text-color-primary" fill="clear" (click)="clearAll()">Limpiar</ion-button>
+        <div class="clearfix"></div>
+        <div class="list-bokmark ion-margin-bottom" *ngFor="let item of posts">
+          <news-item [data]="item" [data]="item" (onBookmark)="onBookmark($event)"></news-item>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!posts.length" class="ion-align-items-center">
+      <ion-col>
+        <div class="no-post ion-text-center">
+          <img style="border-radius: 80px; box-shadow: 1px 2px #54545440;" src="../assets/imgs/minLogo.png" alt="" />
+          <h1 class="text-size-xl text-color-primary">Uups, no hay datos!</h1>
+          <p class="text-size-md text-color-primary">Agrega en esta seccion tus articulos favoritas marcandolos en el icono de guardar</p>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

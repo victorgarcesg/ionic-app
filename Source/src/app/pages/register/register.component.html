@@ -1,0 +1,133 @@
+<ion-header class="box-shadow">
+  <ion-toolbar  color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-uppercase"><b>Registro</b></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="registerForm" (submit)="registerUser()" novalidate>
+
+      <ion-item>
+        <ion-label position="floating">Nombre completo</ion-label>
+        <ion-input tappable formControlName="fullName" type="text" [class.invalid]="!registerForm.controls.fullName.valid && registerForm.controls.fullName.dirty"></ion-input>
+      </ion-item>
+      <div *ngIf="!registerForm.controls.fullName.valid  && registerForm.controls.fullName.dirty" class="validation-errors">
+        <ng-container>
+          <div class="error-message">
+            Por favor ingrese un nombre válido
+          </div>
+        </ng-container>
+      </div>
+      
+      <ion-item>
+        <ion-label position="floating">Identificación</ion-label>
+        <ion-input tappable formControlName="identification"  type="number" [class.invalid]="!registerForm.controls.phone.valid && registerForm.controls.phone.dirty"></ion-input>
+      </ion-item>
+      <div *ngIf="!registerForm.controls.identification.valid  && registerForm.controls.identification.dirty" class="validation-errors">
+        <ng-container>
+          <div class="error-message">
+            Ingrese una identificación válida
+          </div>
+        </ng-container>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Correo electrónico</ion-label>
+        <ion-input tappable formControlName="email" type="email" [class.invalid]="!registerForm.controls.email.valid && registerForm.controls.email.dirty"></ion-input>
+      </ion-item>
+      <div *ngIf="!registerForm.controls.email.valid  && registerForm.controls.email.dirty" class="validation-errors">
+        <ng-container>
+          <div class="error-message">
+            Por favor ingrese un email válido
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input tappable formControlName="password" type="password" [class.invalid]="!registerForm.controls.password.valid && registerForm.controls.password.dirty"></ion-input>
+      </ion-item>
+      <div *ngIf="!registerForm.controls.password.valid  && registerForm.controls.password.dirty" class="validation-errors">
+        <ng-container>
+          <div class="error-message">
+            La contraseña debe tener al menos 6 caracteres
+          </div>
+        </ng-container>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Confirma contraseña</ion-label>
+        <ion-input tappable formControlName="confirmedPassword" type="password"
+        [class.invalid]="!getValidConfirmedPassword(registerForm.controls.confirmedPassword.value) && registerForm.controls.confirmedPassword.dirty"></ion-input>
+      </ion-item>
+      <div *ngIf="!registerForm.controls.confirmedPassword.valid  && registerForm.controls.confirmedPassword.dirty" class="validation-errors">
+        <ng-container>
+          <div class="error-message">
+            La completar la confirmación de la contraseña
+          </div>
+        </ng-container>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Teléfono</ion-label>
+        <ion-input tappable formControlName="phone"  type="tel" [class.invalid]="!registerForm.controls.phone.valid && registerForm.controls.phone.dirty"></ion-input>
+      </ion-item>
+      <div *ngIf="!registerForm.controls.phone.valid  && registerForm.controls.phone.dirty" class="validation-errors">
+        <ng-container>
+          <div class="error-message">
+            Por favor ingrese su número de teléfonico
+          </div>
+        </ng-container>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Fecha de nacimiento</ion-label>
+        <ion-datetime tappable formControlName="bornDate" displayFormat="DD/MM/YYYY" [class.invalid]="!registerForm.controls.bornDate.valid && registerForm.controls.bornDate.dirty"></ion-datetime>
+      </ion-item>
+      <div *ngIf="!registerForm.controls.bornDate.valid  && registerForm.controls.bornDate.dirty" class="validation-errors">
+        <ng-container>
+          <div class="error-message">
+            Indique la fecha de nacimiento
+          </div>
+        </ng-container>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating">Enfermedades</ion-label>
+        <ion-select formControlName="diseases" multiple placeholder="Seleccione una opción">
+          <ion-checkbox></ion-checkbox>
+          <ion-select-option *ngFor="let disease of diseases" [value]="disease.key">{{disease.description}}</ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div *ngIf="!registerForm.controls.diseases.valid  && registerForm.controls.diseases.dirty" class="validation-errors">
+        <ng-container>
+          <div class="error-message">
+            Elija una opción en la sección
+          </div>
+        </ng-container>
+      </div>
+
+      <ion-item>
+        <ion-label position="floating" (click)="presentMapModal()">Ubicación</ion-label>
+        <img *ngIf="location" [src]="'https://osm-static-maps.herokuapp.com/?center='+location.longitude+','+location.latitude+''" />
+      </ion-item>
+      <div *ngIf="!registerForm.controls.location.valid" class="validation-errors">
+        <ng-container>
+          <div class="error-message">
+            Ubique su dirección en el mapa
+          </div>
+        </ng-container>
+      </div>
+
+      <div style="text-align: center;" class="ion-padding">
+        <ion-button [disabled]="registerForm.invalid" (click)="registerUser()" class="login" size="large" 
+        style="color: #fff; background-color: #3880ff;" expand="block" color="default">
+          <ion-icon style="color: #fff; margin-right: 5px;" name="add"></ion-icon>
+          <b>CREAR</b>
+        </ion-button>
+      </div>
+    </form>
+</ion-content>
+

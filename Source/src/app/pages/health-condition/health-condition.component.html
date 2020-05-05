@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title><b>Estado de salud</b></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label style="padding: 5px;" color="dark">¿ Es paciente activo con COVID-19 ?</ion-label>
+    <ion-toggle style="float: right;" (click)="healthStatusChange($event)"></ion-toggle>
+  </ion-item>
+
+</ion-content>

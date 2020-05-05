@@ -1,0 +1,63 @@
+<ion-app>
+  <ion-split-pane when="md" contentId="content">
+    <ion-menu menuId="sideBar" contentId="content">
+      <ion-header>
+      </ion-header>
+      <!-- Content -->
+      <ion-content>
+        <ion-row class="ion-padding">
+          <ion-col size="12" class="ion-align-self-start">
+            <img style="border-radius: 80px; box-shadow: 1px 2px #54545440;" src="../assets/imgs/logo.png" alt="">
+          </ion-col>
+          <ion-col size="12" class="ion-align-self-center">
+            <!-- Menu List -->
+            <ion-list class="ion-no-padding">
+              <ion-menu-toggle auto-hide="false">
+                <ion-item *ngIf="isLoggedIn" lines="none" class="ion-no-padding">
+                  <div class="menu-image" slot="start">
+                    <ion-icon style="color: #7F7E96;" class="text-color-primary" name="person"></ion-icon>
+                  </div>
+
+                  <ion-label>
+                    <h1 class="text-size-xs text-color-primary">
+                      Bienvenido(a) {{username}}</h1>
+                  </ion-label>
+                </ion-item>
+                <div *ngFor="let p of pages">
+                  <ion-item *ngIf="p.component === 'LoginComponent' ? !isLoggedIn : true" lines="none" class="ion-no-padding" [routerDirection]="'root'" (click)="openPage(p)">
+                    <div class="menu-image" slot="start">
+                      <img [src]="p.image">
+                    </div>
+
+                    <ion-label>
+                      <h1 class="text-size-xs text-color-primary">
+                        {{ p.title }}</h1>
+                    </ion-label>
+                    <ion-badge class="ion-float-end" *ngIf="p.component === 'NotificationHistoryComponent' && unreadNotificationsCount !== 0" color="danger">{{unreadNotificationsCount}}</ion-badge>
+                  </ion-item>
+                </div>
+                <ion-item lines="none" *ngIf="isLoggedIn" class="ion-no-padding" [routerDirection]="'root'" (click)="onLogOut()">
+                  <div class="menu-image" slot="start">
+                    <img src="../../assets/icon/menu-about.png">
+                  </div>
+                  <ion-label>
+                    <h1 class="text-size-xs text-color-primary"> {{'Cerrar Sesión'}}</h1>
+                  </ion-label>
+                </ion-item>
+              </ion-menu-toggle>
+            </ion-list>
+          </ion-col>
+          <ion-col size="12" class="ion-align-self-end">
+            <a class="button-link" target="_blank" [href]="socialLink.facebook" *ngIf="socialLink.facebook">
+              <img logo src="../assets/imgs/fb.png" alt="facebook" />
+            </a>
+            <a class="button-link" target="_blank" [href]="socialLink.instagram" *ngIf="socialLink.instagram">
+              <img logo src="../assets/imgs/in.png" alt="instagram" />
+            </a>
+          </ion-col>
+        </ion-row>
+      </ion-content>
+    </ion-menu>
+    <ion-router-outlet Id="content" main></ion-router-outlet>
+  </ion-split-pane>
+</ion-app>

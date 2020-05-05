@@ -1,0 +1,15 @@
+<ion-header style="background-color: #332465;">
+  <ion-navbar>
+    <ion-title color="light">Indique su ubicación</ion-title>
+    <ion-button style="float: right;" end icon-only (click)="putOnMyLocation()" color="light">
+      <ion-icon name="md-locate"></ion-icon>
+    </ion-button>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div id="map" style="width:100%; height:100%;">
+    <ion-button style="z-index: 800;" end class="done" (click)="savePoint()" color="light"> Tomar punto
+    </ion-button>
+  </div>
+</ion-content>

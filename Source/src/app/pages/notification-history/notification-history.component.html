@@ -1,0 +1,41 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title><b>Notificaciones</b></ion-title>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="notifications && notifications.length > 0">
+    <a style="float: right; padding: 10px;" (click)="cleanNotifications()">Limpiar</a>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="notifications && notifications.length > 0; else notContent">
+    <ion-list-header>
+      Recientes
+    </ion-list-header>
+    <div>
+      <div *ngFor="let notification of notifications">
+        <div [class]="notification.additionalData.read ? '' : 'notification-unread'" (click)="openNotification(notification.additionalData.postId)">
+          <ion-item>
+            <ion-avatar slot="start">
+              <ion-icon style="font-size: 40px;" name="notifications-outline"></ion-icon>
+            </ion-avatar>
+            <ion-label>
+              <h2 [class]="notification.additionalData.read ? '' : 'bold-text'" >{{notification.body}}</h2>
+              <h3>Articulo creado</h3>
+              <p>{{getDateFrom(notification.additionalData.date)}}</p>
+            </ion-label>
+          </ion-item>
+        </div>
+      </div>
+    </div>
+  </ion-list>
+  <ng-template #notContent>
+    <news-empty-state 
+    [title]="emptyState.title" 
+    [subtitle]="emptyState.subtitle"
+  ></news-empty-state>
+  </ng-template>
+</ion-content>

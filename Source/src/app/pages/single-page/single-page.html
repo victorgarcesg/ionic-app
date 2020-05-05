@@ -1,0 +1,67 @@
+<!-- Page Single Page -->
+<ion-header class="box-shadow">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="goBack()" text="Volver" defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title class="ion-text-uppercase">VAMOS JUNTOS RD</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!-- Content -->
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-no-padding">
+      <ion-col size="12" class="ion-no-padding" *ngIf="post">
+        <!-- Header Images -->
+        <div class="no-post-image">
+          <div class="background-size" id="elastic-header" [hidden]="!post.image"
+            [ngStyle]="{'background-image': 'url(' + post.image + ')'}"></div>
+        </div>
+        <ion-card class="ion-padding box-shadow border-radius" single-page>
+          <ion-card-header class="ion-no-padding">
+            <!-- Name Category -->
+            <span class="ion-float-start category border-radius">{{post.category}}</span>
+            <ion-button class="ion-float-end bookMark-dark" fill="clear"
+              (click)="bookmark(post, $event)" [ngClass]="{'active' : post.bookmark}">
+            </ion-button>
+            <ion-button class="ion-float-end" (click)="shareWhatsapp(post, $event)" fill="clear">
+              <ion-icon style="color: #40e25d; font-size: 30px;" name="logo-whatsapp"></ion-icon>
+            </ion-button>
+
+            <ion-button class="ion-float-end" (click)="share(post, $event)" fill="clear">
+              <ion-icon style="color:#0181f8; font-size: 30px;" name="logo-facebook"></ion-icon>
+            </ion-button>
+            <div class="clearfix"></div>
+            <h1 class="text-size-xl font-header" [innerHTML]="htmlTitle"></h1>
+
+            <!--Tags-->
+            <ion-col size="12" *ngFor="let item of post.tagsList">
+              <span class="tag" (click)="openHashtag(item, $event)">
+                #{{item.slug}}
+              </span>
+            </ion-col>
+          </ion-card-header>
+          <!-- Content -->
+          <ion-card-content class="ion-no-padding">
+            <!--- Content with web site-->
+            <div class="text-size-lg font-body" [innerHTML]="htmlContent"></div>
+          </ion-card-content>
+          <ion-card-content class="ion-padding ion-text-center">
+            <ion-label class="text-size-lg text-color-primary">
+              ¿Te ayudo este articulo? ¡COMPARTELO!
+            </ion-label>
+            <ion-button size="large" class="ion-text-center" (click)="share(post, $event)" fill="clear">
+              <ion-icon style="color:#0181f8; font-size: 60px;" name="logo-facebook"></ion-icon>
+            </ion-button>
+
+            <ion-button size="large" class="ion-text-center" (click)="shareWhatsapp(post, $event)" fill="clear">
+              <ion-icon style="color: #40e25d; font-size: 60px;" name="logo-whatsapp"></ion-icon>
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+        <news-list [categoryId]="post.categoryId" [postId]="post.id" [title]="" (onItemClick)="onItemClick($event)">
+        </news-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
